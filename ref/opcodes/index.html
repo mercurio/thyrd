@@ -1,0 +1,784 @@
+<html>
+<body>
+<h2 align="center"><a href="http://thyrd.org/thyrd/">Thyrd</a> Opcodes</h2>
+<h4 align="center">v0.3</h4>
+<br>
+<table border=0 rules=none COLS=2 NOSAVE align="center">
+<thead>
+<font face="Times New Roman, Times, serif" size="4">
+<tr align="left" valign="top" bgcolor="#e7e7e7">
+<th>Opcode</th>
+<th>Caption</th>
+<th>In</th>
+<th>Out</th>
+<th>Tags</th>
+<th>Help</th>
+<th>SideFX</th>
+</font>
+</tr>
+</thead>
+<tbody>
+<font face="Times New Roman, Times, serif" size="4">
+<tr align="left" valign="top">
+<td><img src="OpA.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>select A</b></td>
+<td bgcolor="#b7c7dd"></td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Select A as the current stack</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpAdd.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>add</b></td>
+<td bgcolor="#b7c7dd">a b</td>
+<td bgcolor="#bfe0be">a+b</td>
+<td bgcolor="#bee0d3">arithmetic strings</td>
+<td bgcolor="#dfe0ba">Pop two numbers and push their sum, or concatenate two strings</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpAnd.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>and</b></td>
+<td bgcolor="#b7c7dd">a b</td>
+<td bgcolor="#bfe0be">a&b</td>
+<td bgcolor="#bee0d3">logic</td>
+<td bgcolor="#dfe0ba">Pop two booleans and push true if they're both true, false otherwise</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpAtomic.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>cell is atomic?</b></td>
+<td bgcolor="#b7c7dd">c</td>
+<td bgcolor="#bfe0be">c bool</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Peeks at the top cell and pushs true if the cell is atomic (not a grid)</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpB.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>select B</b></td>
+<td bgcolor="#b7c7dd"></td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Select B as the current stack</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpBind.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>bind</b></td>
+<td bgcolor="#b7c7dd">aby</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Pop cells off the A, B, and Y stacks and bind them in a triad</td>
+<td bgcolor="#dfb7be">Error if three cells aren't present</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpBreak.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>break</b></td>
+<td bgcolor="#b7c7dd"></td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">flow</td>
+<td bgcolor="#dfe0ba">Pause the wave at this cell, allowing the user to inspect it, add code, etc.</td>
+<td bgcolor="#dfb7be">Pauses wave</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpCall.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>call</b></td>
+<td bgcolor="#b7c7dd">path</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">combinator</td>
+<td bgcolor="#dfe0ba">Pop the path on the top of the stack, go to that cell and evaluate it</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpContainer.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>container</b></td>
+<td bgcolor="#b7c7dd">cell else</td>
+<td bgcolor="#bfe0be">cell</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Pop off a cell and an else clause, and push the container cell of the given cell. If the cell doesn't have a container, evaluate the else clause.</td>
+<td bgcolor="#dfb7be">Error if two cells aren't present. Else clause can have side effects.</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpCopyCells.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>copy cells</b></td>
+<td bgcolor="#b7c7dd">cell i0 j0 i1 j1</td>
+<td bgcolor="#bfe0be">cell</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Given a cell and starting and ending coordinates, copy the range of cells into a new holding cell.</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpCutCells.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>cut cells</b></td>
+<td bgcolor="#b7c7dd">cell i0 j0 i1 j1</td>
+<td bgcolor="#bfe0be">cell</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Given a cell and starting and ending coordinates, cut the range of cells into a new holding cell.</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpDeleteCols.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>delete columns</b></td>
+<td bgcolor="#b7c7dd">cell i0 i1</td>
+<td bgcolor="#bfe0be">cell</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Given a cell and starting and ending i indexes, delete that range of columns</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpDeleteRows.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>delete rows</b></td>
+<td bgcolor="#b7c7dd">cell j0 j1</td>
+<td bgcolor="#bfe0be">cell</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Given a cell and starting and ending j indexes, delete that range of rows</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpDivide.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>divide</b></td>
+<td bgcolor="#b7c7dd">a b</td>
+<td bgcolor="#bfe0be">a/b</td>
+<td bgcolor="#bee0d3">arithmetic strings</td>
+<td bgcolor="#dfe0ba">Pop two numbers and push their ratio, or subtract all instances of b from a</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpDrop.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>drop</b></td>
+<td bgcolor="#b7c7dd">x</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Remove the item on the top of the current stack</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpDup.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>duplicate</b></td>
+<td bgcolor="#b7c7dd">a</td>
+<td bgcolor="#bfe0be">a a</td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Duplicate the top of the stack</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpDupCell.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>dup cell</b></td>
+<td bgcolor="#b7c7dd">cell</td>
+<td bgcolor="#bfe0be">cell dup</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Given a cell, push a new cell with the same contents</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpEnd.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>end</b></td>
+<td bgcolor="#b7c7dd">a</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">flow</td>
+<td bgcolor="#dfe0ba">End wave, pop the current stack and store it in the result cell</td>
+<td bgcolor="#dfb7be">Terminates wave, sets result</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpEqual.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>equal</b></td>
+<td bgcolor="#b7c7dd">a b</td>
+<td bgcolor="#bfe0be">a=b</td>
+<td bgcolor="#bee0d3">logic</td>
+<td bgcolor="#dfe0ba">Pop two values and return true if they are the same</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpError.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>error</b></td>
+<td bgcolor="#b7c7dd"></td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">flow</td>
+<td bgcolor="#dfe0ba">Stop the wave, displaying top of current stack as an error message</td>
+<td bgcolor="#dfb7be">Terminates wave</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpEval.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>evaluate</b></td>
+<td bgcolor="#b7c7dd">a</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">combinator</td>
+<td bgcolor="#dfe0ba">Pop the cell on the top of the stack and evaluate its contents</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpFilter.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>filter</b></td>
+<td bgcolor="#b7c7dd">a t</td>
+<td bgcolor="#bfe0be">b</td>
+<td bgcolor="#bee0d3">combinator</td>
+<td bgcolor="#dfe0ba">Pop a grid (a) and a test (t). Evaluate the test against each of the cells in a and return grid b, which contains only those cells for which the test evaluates to true.</td>
+<td bgcolor="#dfb7be">Depends on program provided as input</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpFind.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>find</b></td>
+<td bgcolor="#b7c7dd">aby</td>
+<td bgcolor="#bfe0be">g</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Pop paths off the A, B, and Y stacks and search for all the triads that match, returning a grid of triads</td>
+<td bgcolor="#dfb7be">Error if three cells aren't present</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpFold.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>fold</b></td>
+<td bgcolor="#b7c7dd">a p</td>
+<td bgcolor="#bfe0be">p folded into a</td>
+<td bgcolor="#bee0d3">combinator</td>
+<td bgcolor="#dfe0ba">Pop a grid (a) and a program (p). Evaluate the program with the first two cells of a, then with the result and the next cell from a, until the end of a. The final result is pushed on the stack.</td>
+<td bgcolor="#dfb7be">Depends on program provided as input</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpFollow.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>follow path</b></td>
+<td bgcolor="#b7c7dd">path1 path2 else</td>
+<td bgcolor="#bfe0be">cell</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Pop off a two parts of a path and an else clause, and follow path2 starting from path1, pushing the resulting cell. If the path doesn't resolve, we evaluate the else clause.</td>
+<td bgcolor="#dfb7be">Error if three cells aren't present. Else clause can have side effects.</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpGT.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>greater than</b></td>
+<td bgcolor="#b7c7dd">a b</td>
+<td bgcolor="#bfe0be">a>b</td>
+<td bgcolor="#bee0d3">logic</td>
+<td bgcolor="#dfe0ba">Pop two values, compare them, and push true if a is greater than b</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpGTE.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>greater or equal</b></td>
+<td bgcolor="#b7c7dd">a b</td>
+<td bgcolor="#bfe0be">a>=b</td>
+<td bgcolor="#bee0d3">logic</td>
+<td bgcolor="#dfe0ba">Pop two values, compare them, and push true if a is greater than or equal to b</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpGetSub.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>get subcell</b></td>
+<td bgcolor="#b7c7dd">cell i j</td>
+<td bgcolor="#bfe0be">cell</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Given a cell and i and j indexes, retrieve the subcell or make it if it doesn't exist yet</td>
+<td bgcolor="#dfb7be">Makes input cell a grid if necessary. Generates error if it can't make the subcell.</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpGetType.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>get type</b></td>
+<td bgcolor="#b7c7dd">cell</td>
+<td bgcolor="#bfe0be">cell type</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Peek at the top cell and push it's type</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpHasSub.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>has subcell?</b></td>
+<td bgcolor="#b7c7dd">cell i j</td>
+<td bgcolor="#bfe0be">cell i j bool</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Peek a cell and i and j indexes, push true if the cell exists</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpIf.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>if then else</b></td>
+<td bgcolor="#b7c7dd">a (ifTrue) (ifFalse)</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">combinator</td>
+<td bgcolor="#dfe0ba">If a is true evaluate (ifTrue), else (ifFalse)</td>
+<td bgcolor="#dfb7be">depends on quoted code</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpIndex.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>index</b></td>
+<td bgcolor="#b7c7dd">cell</td>
+<td bgcolor="#bfe0be">i j</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Pop off a cell and push its i and j indexes</td>
+<td bgcolor="#dfb7be">None</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpInsertCols.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>insert columns</b></td>
+<td bgcolor="#b7c7dd">cell i n</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Given a cell and i index, add n columns after the indexed column</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpInsertRows.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>insert rows</b></td>
+<td bgcolor="#b7c7dd">cell j n</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Given a cell and j index, insert n rows after row j</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpIsUnder.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>is under?</b></td>
+<td bgcolor="#b7c7dd">grid cell</td>
+<td bgcolor="#bfe0be">grid  cell bool</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Peek a grid cell and a cell, push true if the cell is anywhere under the grid</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpLT.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>less than</b></td>
+<td bgcolor="#b7c7dd">a b</td>
+<td bgcolor="#bfe0be">a<b</td>
+<td bgcolor="#bee0d3">logic</td>
+<td bgcolor="#dfe0ba">Pop two values, compare them, and push true if a is less than b</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpLTE.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>less or eqaul</b></td>
+<td bgcolor="#b7c7dd">a b</td>
+<td bgcolor="#bfe0be">a<=b</td>
+<td bgcolor="#bee0d3">logic</td>
+<td bgcolor="#dfe0ba">Pop two values, compare them, and push true if a is less than or equal to b</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpMakeGrid.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>make grid</b></td>
+<td bgcolor="#b7c7dd">cell i0 j0 i1 j1</td>
+<td bgcolor="#bfe0be">cell</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Given a cell and starting and ending coordinates, replace the cell at the starting coordinates with a grid containing the range of cells</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpMap.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>map</b></td>
+<td bgcolor="#b7c7dd">a p</td>
+<td bgcolor="#bfe0be">map p on a</td>
+<td bgcolor="#bee0d3">combinator</td>
+<td bgcolor="#dfe0ba">Pop a grid (a) and a program (p). Evaluate the program with each of the cells of a and return grid b, which contains the results of the evaluations.</td>
+<td bgcolor="#dfb7be">Depends on program provided as input</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpMap2.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>map2</b></td>
+<td bgcolor="#b7c7dd">a b p</td>
+<td bgcolor="#bfe0be">p applied to the cells in a and b</td>
+<td bgcolor="#bee0d3">combinator</td>
+<td bgcolor="#dfe0ba">Pop two grids (a and b) and a program (p). Evaluate the program with each of the cells of a and b and return grid c, which contains the results of the evaluations. The shape of c will be the same as a, the cells from b will be reused if necessary.</td>
+<td bgcolor="#dfb7be">Depends on program provided as input</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpMerge.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>merge</b></td>
+<td bgcolor="#b7c7dd">grid glue</td>
+<td bgcolor="#bfe0be">cell</td>
+<td bgcolor="#bee0d3">strings</td>
+<td bgcolor="#dfe0ba">Pop off a grid cell and a glue string. Treating the contents of the grid as a list, construct a string with each value in the list joined by the glue string and push that string. The glue string does not appear at the end.</td>
+<td bgcolor="#dfb7be">Error if two cells aren't present. If grid cell is atomic we just push it.</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpMergeGrid.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>mergegrid</b></td>
+<td bgcolor="#b7c7dd">grid iglue jglue</td>
+<td bgcolor="#bfe0be">cell</td>
+<td bgcolor="#bee0d3">strings</td>
+<td bgcolor="#dfe0ba">Pop off a grid cell and two glue strings. Construct a string with each value in the grid joined by the i glue string along the i axis and the j glue string along the j axis, and push that string. The i glue string does not appear at the end of each row but the j glue string does appear at the end of the whole grid.</td>
+<td bgcolor="#dfb7be">Error if three cells aren't present. If the grid cell is atomic we just push it.</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpModulo.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>modulo</b></td>
+<td bgcolor="#b7c7dd">a b</td>
+<td bgcolor="#bfe0be">a%b</td>
+<td bgcolor="#bee0d3">arithmetic strings</td>
+<td bgcolor="#dfe0ba">Pop two numbers and push the remainder when a is divided by b. If the values are strings,
+return the tail of a following the rightmost appearance of b.</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpMoveToA.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>move to A</b></td>
+<td bgcolor="#b7c7dd">x</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Pop the current stack and push it on stack A</td>
+<td bgcolor="#dfb7be">Modifies stack A, unless A is already the current stack</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpMoveToB.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>move to B</b></td>
+<td bgcolor="#b7c7dd">x</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Pop the current stack and push it on stack B</td>
+<td bgcolor="#dfb7be">Modifies stack B, unless B is already the current stack</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpMoveToX.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>move to X</b></td>
+<td bgcolor="#b7c7dd">x</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Pop the current stack and push it on stack X</td>
+<td bgcolor="#dfb7be">Modifies stack X, unless X is already the current stack</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpMoveToY.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>move to Y</b></td>
+<td bgcolor="#b7c7dd">x</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Pop the current stack and push it on stack Y</td>
+<td bgcolor="#dfb7be">Modifies stack Y, unless Y is already the current stack</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpMultiply.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>multiply</b></td>
+<td bgcolor="#b7c7dd">a b</td>
+<td bgcolor="#bfe0be">a*b</td>
+<td bgcolor="#bee0d3">arithmetic</td>
+<td bgcolor="#dfe0ba">Pop two numbers and push their product</td>
+<td bgcolor="#dfb7be">Halts wave if not two numbers</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpNip.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>nip from stack</b></td>
+<td bgcolor="#b7c7dd">n</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Drop the nth item down in the stack</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpNoOp.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>do nothing</b></td>
+<td bgcolor="#b7c7dd"></td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">flow</td>
+<td bgcolor="#dfe0ba">Do nothing</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpNot.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>not</b></td>
+<td bgcolor="#b7c7dd">a</td>
+<td bgcolor="#bfe0be">!a</td>
+<td bgcolor="#bee0d3">logic</td>
+<td bgcolor="#dfe0ba">Pop a truth value and return its negation</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpNotEqual.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>not equal</b></td>
+<td bgcolor="#b7c7dd">a b</td>
+<td bgcolor="#bfe0be">a!=b</td>
+<td bgcolor="#bee0d3">logic</td>
+<td bgcolor="#dfe0ba">Pop two values, compare them, and push true they are not the same.</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpNull.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>null?</b></td>
+<td bgcolor="#b7c7dd">a</td>
+<td bgcolor="#bfe0be">a bool</td>
+<td bgcolor="#bee0d3">logic</td>
+<td bgcolor="#dfe0ba">Peeks at the top value and pushs true if the value is the empty string or 0</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpOr.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>or</b></td>
+<td bgcolor="#b7c7dd">a b</td>
+<td bgcolor="#bfe0be">a|b</td>
+<td bgcolor="#bee0d3">logic</td>
+<td bgcolor="#dfe0ba">Pop two truth values, compare them, and push true if a or b is true.</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpParse.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>parse</b></td>
+<td bgcolor="#b7c7dd">string glue</td>
+<td bgcolor="#bfe0be">grid</td>
+<td bgcolor="#bee0d3">strings</td>
+<td bgcolor="#dfe0ba">Pop off a string and a glue string. Parse the string by spliting it into substrings as delineated by the glue string, and construct a grid containing a list of cells, one fore each substring.</td>
+<td bgcolor="#dfb7be">Error if two cells aren't present. If string cell is not atomic we just push it.</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpParseGrid.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>parsegrid</b></td>
+<td bgcolor="#b7c7dd">string iglue jglue</td>
+<td bgcolor="#bfe0be">grid</td>
+<td bgcolor="#bee0d3">strings</td>
+<td bgcolor="#dfe0ba">Pop off a string and two glue strings. Split the string into rows using the jglue and columns using iglue. The i glue string does not appear at the end of each row but the j glue string does appear at the end of the whole grid. The result is a grid cell with each cell containing one parsed element from the string.</td>
+<td bgcolor="#dfb7be">Error if three cells aren't present. If the string cell is not atomic we just push it.</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpPasteCells.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>paste cells</b></td>
+<td bgcolor="#b7c7dd">hcell cell i0 j0</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Given a holding cell, destination cell and starting coordinates, paste the cells from the holding cell to the destination.</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpPick.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>pick from stack</b></td>
+<td bgcolor="#b7c7dd">n</td>
+<td bgcolor="#bfe0be">cell</td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Pick the nth item down in the stack and copy it to the top.</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpPred.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>predecessor</b></td>
+<td bgcolor="#b7c7dd">a</td>
+<td bgcolor="#bfe0be">a-1</td>
+<td bgcolor="#bee0d3">arithmetic</td>
+<td bgcolor="#dfe0ba">Pop a value and return the previous value.</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpRangeSetType.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>range set type</b></td>
+<td bgcolor="#b7c7dd">cell i0 j0 i1 j1 type</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Given a range of cells (grid cell and starting and ending coordinates), and a type, change the type of the selected cells</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpRecurse.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>recurse</b></td>
+<td bgcolor="#b7c7dd">whennull prog</td>
+<td bgcolor="#bfe0be">recursion with prog</td>
+<td bgcolor="#bee0d3">combinator</td>
+<td bgcolor="#dfe0ba">Pop a whennull value and a program. Recursively apply the program to the value below the ifnull, taking the pred each time and using whennull when the operand is null.</td>
+<td bgcolor="#dfb7be">Depends on program provided as input</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpRecurseLinear.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>recurselinear</b></td>
+<td bgcolor="#b7c7dd">if then else1 else2</td>
+<td bgcolor="#bfe0be">linear recursion</td>
+<td bgcolor="#bee0d3">combinator</td>
+<td bgcolor="#dfe0ba">Pop four programs: if then else1 else2. If if evaluates true, eval then, else eval else1, recurse, and eval else2.</td>
+<td bgcolor="#dfb7be">Depends on program provided as input</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpRepeat.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>repeat</b></td>
+<td bgcolor="#b7c7dd">p n</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">combinator</td>
+<td bgcolor="#dfe0ba">Pop a cell p and a value n and evaluate p n times</td>
+<td bgcolor="#dfb7be">Depends on contents of p</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpReverse.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>reverse</b></td>
+<td bgcolor="#b7c7dd">n</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Reverse the order of the stack, from 0 (top) to n</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpRotate.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>rotate</b></td>
+<td bgcolor="#b7c7dd">n</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Rotate the order of the stack, so that item n is at the top</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpSelect.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>select</b></td>
+<td bgcolor="#b7c7dd">a test</td>
+<td bgcolor="#bfe0be">success</td>
+<td bgcolor="#bee0d3">combinator</td>
+<td bgcolor="#dfe0ba">Pop a grid (a) and a program (test). Evaluate the test against each of the cells of the grid, stopping when the test returns a true value. The result of the last evaluation of test is returned, which will be false if it failed for all the cells of a.</td>
+<td bgcolor="#dfb7be">Depends on program provided as input</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpSeq.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>sequence</b></td>
+<td bgcolor="#b7c7dd">start end inc</td>
+<td bgcolor="#bfe0be">cell</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Given start, end, and increment values specifying a sequence, generate a new grid cell containing a list of cells representing the sequence</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpSet.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>set</b></td>
+<td bgcolor="#b7c7dd">cell value</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Pop off a cell and a value, and set the cell to the new value.</td>
+<td bgcolor="#dfb7be">Error if two cells aren't present.</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpSetType.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>set type</b></td>
+<td bgcolor="#b7c7dd">cell type</td>
+<td bgcolor="#bfe0be">cell</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Given a cell and a type, change the type of the cell and leave it on the stack.</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpStep.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>step</b></td>
+<td bgcolor="#b7c7dd">a p</td>
+<td bgcolor="#bfe0be">p applied to each cell in a</td>
+<td bgcolor="#bee0d3">combinator</td>
+<td bgcolor="#dfe0ba">Pop a grid (a) and a program (p). Evaluate the program with the first cell of a (along with whatever else was on the stack), then with the result and the next cell from a, until the end of a. The final result is pushed on the stack.</td>
+<td bgcolor="#dfb7be">Depends on program provided as input</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpSubtract.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>subtract</b></td>
+<td bgcolor="#b7c7dd">a b</td>
+<td bgcolor="#bfe0be">a-b</td>
+<td bgcolor="#bee0d3">arithmetic strings</td>
+<td bgcolor="#dfe0ba">Pop two numbers and push their difference, or subtract one string from the other</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpSucc.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>successor</b></td>
+<td bgcolor="#b7c7dd">a</td>
+<td bgcolor="#bfe0be">a+1</td>
+<td bgcolor="#bee0d3">arithmetic</td>
+<td bgcolor="#dfe0ba">Pop a value and return the next value.</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpSwap.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>swap</b></td>
+<td bgcolor="#b7c7dd">a b</td>
+<td bgcolor="#bfe0be">b a</td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Swap the order of the top two items on the stack</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpSwitch.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>switch</b></td>
+<td bgcolor="#b7c7dd">plist</td>
+<td bgcolor="#bfe0be">success</td>
+<td bgcolor="#bee0d3">combinator</td>
+<td bgcolor="#dfe0ba">Pop a grid containing a list of programs (plist). Evaluate each of the programs in turn, each should leave a return value that's popped off the stack. Stop evaluating programs from the list as soon as one returns a true value. Return the result of the last program evaluated (which will be false if they all failed).</td>
+<td bgcolor="#dfb7be">Depends on programs provided as input</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpTcl.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>execute tcl</b></td>
+<td bgcolor="#b7c7dd">script</td>
+<td bgcolor="#bfe0be">result</td>
+<td bgcolor="#bee0d3">strings</td>
+<td bgcolor="#dfe0ba">Pop a Tcl script and execute it, pushing the result</td>
+<td bgcolor="#dfb7be">Anything</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpToCell.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>to cell</b></td>
+<td bgcolor="#b7c7dd">path</td>
+<td bgcolor="#bfe0be">cell</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Pop off a cell containing a path and push the corresponding cell. The path cell is used as the current cell for resolving a relative path. An error is generated if we can't make or resolve to a cell.</td>
+<td bgcolor="#dfb7be">Possible error.</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpToPath.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>to path</b></td>
+<td bgcolor="#b7c7dd">cell</td>
+<td bgcolor="#bfe0be">path</td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Pop off a cell and push a cell containing its path</td>
+<td bgcolor="#dfb7be">None</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpTuck.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>tuck</b></td>
+<td bgcolor="#b7c7dd">n</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Pop n, then copy the top of the stack and insert it below the nth item in the stack.</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpUnbind.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>unbind</b></td>
+<td bgcolor="#b7c7dd">t</td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">thyrdspace</td>
+<td bgcolor="#dfe0ba">Pop a cell containing a triad off the current stack and destroy the triad.</td>
+<td bgcolor="#dfb7be">Error if cell popped isn't a triad</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpWaveAnchor.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>wave's 'anchor' cell</b></td>
+<td bgcolor="#b7c7dd"></td>
+<td bgcolor="#bfe0be">anchor</td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Push the anchor cell for this wave. If there's no anchor cell specified we make one that will be destroyed when the wave destructs.</td>
+<td bgcolor="#dfb7be"></td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpWaveNext.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>wave's 'next' route</b></td>
+<td bgcolor="#b7c7dd"></td>
+<td bgcolor="#bfe0be">next</td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Push this wave's next route (the route used to get from one cell to the next when flowing).</td>
+<td bgcolor="#dfb7be">None. Unless you mess with the route, in which case: good luck to you!</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpWavePrev.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>wave's 'previous' route</b></td>
+<td bgcolor="#b7c7dd"></td>
+<td bgcolor="#bfe0be">prev</td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Push this wave's previous route (the route used to get from one cell to the next when running in reverse).</td>
+<td bgcolor="#dfb7be">None. Unless you mess with the route, in which case: good luck to you!</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpX.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>select X</b></td>
+<td bgcolor="#b7c7dd"></td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Select X as the current stack</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+<tr align="left" valign="top">
+<td><img src="OpY.png" border="0"></td>
+<td bgcolor="#e7e7e7"><b>select Y</b></td>
+<td bgcolor="#b7c7dd"></td>
+<td bgcolor="#bfe0be"></td>
+<td bgcolor="#bee0d3">wave</td>
+<td bgcolor="#dfe0ba">Select Y as the current stack</td>
+<td bgcolor="#dfb7be">none</td>
+</tr>
+</font>
+</tbody>
+</table>
+<h4 align="center">Generated on June 19, 2010</h4>
+</body>
+</html>

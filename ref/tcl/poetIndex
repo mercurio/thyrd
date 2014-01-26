@@ -1,0 +1,7 @@
+# Poet preload index file
+lappend ::Poet::preload_index(Thyrd) CoreType
+lappend ::Poet::preload_index(Thyrd) Grid
+lappend ::Poet::preload_index(Thyrd) Integer
+lappend ::Poet::preload_index(Thyrd) Opcode
+lappend ::Poet::preload_index(Thyrd) Path
+lappend ::Poet::preload_index(Thyrd) TriadCore
