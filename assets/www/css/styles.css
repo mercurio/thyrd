@@ -127,27 +127,27 @@ body {
 }
 
 .image1 {
-    background-image:url('http://farm6.staticflickr.com/5323/9902848784_cbd10ba3ca_c.jpg');
+    background-image:url('/images/opcodes/OpRecurse.png');
 }
 
 .image2 {
-    background-image:url('http://farm6.staticflickr.com/5448/9901034384_e3de7406c3_c.jpg');
+    background-image:url('/images/opcodes/OpAtomic.png');
 }
 
 .image3 {
-    background-image:url('http://farm8.staticflickr.com/7383/9899900453_4540cf9de6_c.jpg');
+    background-image:url('/images/opcodes/OpUnbind.png');
 }
 
 .image4 {
-    background-image:url('http://farm3.staticflickr.com/2811/9680904065_7f866f4ab5_c.jpg');
+    background-image:url('/images/opcodes/OpTuck.png');
 }
 
 .image5 {
-    background-image:url('http://farm6.staticflickr.com/5496/9684141030_70a80e3b40_z.jpg');
+    background-image:url('/images/opcodes/OpMergeGrid.png');
 }
 
 .image6 {
-    background-image:url('http://farm4.staticflickr.com/3726/9522001276_21bb6fbd64_z.jpg');
+    background-image:url('/images/opcodes/OpDrop.png');
 }
 
 
