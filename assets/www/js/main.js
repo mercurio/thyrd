@@ -18,7 +18,7 @@ debug = function(args) {
 };
 
 requirejs.config({
-    baseUrl: '/js',
+    baseUrl: 'js',
     shim: {
         'lib/zepto.min': ['lib/setup_prior_to_libraries'],
         'lib/mustache': ['lib/zepto.min'],

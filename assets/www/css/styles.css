@@ -127,27 +127,27 @@ body {
 }
 
 .image1 {
-    background-image:url('/images/opcodes/OpRecurse.png');
+    background-image:url('../images/opcodes/OpRecurse.png');
 }
 
 .image2 {
-    background-image:url('/images/opcodes/OpAtomic.png');
+    background-image:url('../images/opcodes/OpAtomic.png');
 }
 
 .image3 {
-    background-image:url('/images/opcodes/OpUnbind.png');
+    background-image:url('../images/opcodes/OpUnbind.png');
 }
 
 .image4 {
-    background-image:url('/images/opcodes/OpTuck.png');
+    background-image:url('../images/opcodes/OpTuck.png');
 }
 
 .image5 {
-    background-image:url('/images/opcodes/OpMergeGrid.png');
+    background-image:url('../images/opcodes/OpMergeGrid.png');
 }
 
 .image6 {
-    background-image:url('/images/opcodes/OpDrop.png');
+    background-image:url('../images/opcodes/OpDrop.png');
 }
 
 

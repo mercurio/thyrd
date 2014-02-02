@@ -4,9 +4,9 @@
  */
 define([
 	'js/app/space/space.js',
-    'js/lib/mustache.js',
-    'plugins/domReady!'
-], function(ThyrdSpace, Mustache) {
+    'plugins/domReady'
+], function(ThyrdSpace, domReady) {
+	domReady(function() {
 
     // Create the space
     // Create the UI
@@ -78,4 +78,5 @@ define([
         }
         $("body").prepend (content);
     }
+	});
 });

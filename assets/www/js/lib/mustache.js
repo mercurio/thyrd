@@ -1,3 +1,4 @@
+console.log('stache');
 /*!
  * mustache.js - Logic-less {{mustache}} templates with JavaScript
  * http://github.com/janl/mustache.js
@@ -11,7 +12,7 @@
   } else {
     var mustache = {};
     factory(mustache);
-    if (typeof define === "function" && define.amd) {
+    if (false && typeof define === "function" && define.amd) {
       define(mustache); // AMD
     } else {
       root.Mustache = mustache; // <script>
