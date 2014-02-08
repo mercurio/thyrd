@@ -1,4 +1,3 @@
-console.log('domready');
 /**
  * @license RequireJS domReady 2.0.1 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
@@ -18,7 +17,6 @@ define(function () {
 		isPageLoaded = !isBrowser,
         doc = isBrowser ? document : null,
         readyCalls = [];
-console.log(isBrowser);
     function runCallbacks(callbacks) {
         var i;
         for (i = 0; i < callbacks.length; i += 1) {
@@ -28,7 +26,6 @@ console.log(isBrowser);
 
     function callReady() {
         var callbacks = readyCalls;
-console.log('domready7' + isPageLoaded + JSON.stringify(callbacks));
         if (isPageLoaded) {
             //Call the DOM ready callbacks
             if (callbacks.length) {
@@ -47,11 +44,9 @@ console.log('domready7' + isPageLoaded + JSON.stringify(callbacks));
             if (scrollIntervalId) {
                 clearInterval(scrollIntervalId);
             }
-console.log('domready8');
             callReady();
         }
     }
-console.log('domready1');
     if (isBrowser) {
         if (document.addEventListener) {
             //Standards. Hooray! Assumption here that if standards based,
@@ -78,7 +73,6 @@ console.log('domready1');
                 }, 30);
             }
         }
-console.log('domready2');
         //Check if document already complete, and if so, just trigger page load
         //listeners. Latest webkit browsers also use "interactive", and
         //will fire the onDOMContentLoaded before "interactive" but not after
@@ -110,7 +104,6 @@ console.log('domready2');
         }
         return domReady;
     }
-console.log('domready3');
     domReady.version = '2.0.1';
 
     /**
@@ -125,6 +118,5 @@ console.log('domready3');
     };
 
     /** END OF PUBLIC API **/
-console.log('domready4');
     return domReady;
 });

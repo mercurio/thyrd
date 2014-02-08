@@ -20,18 +20,19 @@ debug = function(args) {
 requirejs.config({
     baseUrl: 'js',
     shim: {
-        'lib/zepto.min': ['lib/setup_prior_to_libraries'],
-        'lib/mustache': ['lib/zepto.min'],
-        'app/init': ['lib/mustache'],
+        'lib/jquery.min': ['lib/setup_prior_to_libraries'],
+        'lib/mustache': ['lib/jquery.min'],
+        'app/init': ['lib/mustache', 'lib/pouchdb.min'],
         'app/core': ['app/init']
 }
 });
 
 require([
     'lib/setup_prior_to_libraries',
-//    'lib/less.min',
-    'lib/zepto.min', 
+    'lib/less.min',
+    'lib/jquery.min', 
     'lib/mustache', 
+    'lib/pouchdb.min', 
     'app/init',
     'app/core' 
 ], function() {
