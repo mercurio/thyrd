@@ -8,55 +8,108 @@
  * Observable events:
  *  stats       number of waves or active waves changed
  *  clipboard   the cut/copy/paste clipboard has changed
+ *
+ * Instantiated as the global Thyrd.space
  */
 define([
     'lib/pouchdb.min'
 ], function(PouchDB) {
-    var server = '192.168.2.4';
-    var port = '3333';
     var spaceName = 'testSpace';
 
     return Thyrd.space = {
         db: null,               // the PouchDB database
-        root: null,             // the root cell of the space
+        root: null,             // id of the root cell of the space
         triadMapper: null,      // maps cells to triads
         waveMapper: {},         // map from a result cell to the wave that computes it
         undo: [],               // stacks for undo/redo support
         redo: [],
         nWaves: 0,              // number of waves
         nActiveWaves: 0,        // number of active waves
+        server: '192.168.2.4',  // couchdb server or equivalent
+        port: '3333',           // couchdb port
 
+        /*
+         * Reset database and then casue it to exist
+         */
+        reset: function(callback) {
+            var self = this;
+            PouchDB.destroy(spaceName, function() { self.exist(callback) });
+        },
+                
         /*
          * Initialize the space
          */
-        exist: function() {
+        exist: function(callback) {
             this.db = new PouchDB(spaceName);
-            this.sync();
 
             var self = this;
             this.db.get('root', function(err, resp) {
-                if(err.error) 
-                    self.buildNewSpace();
+                if(err && err.error) {
+                    self.buildNewSpace(function() {
+                        self.db.get('root', function(err, resp) {
+                            if(err && err.error) {  // something's wrong
+                                alert("Unable to construct new Thyrd space");
+                                return;
+                            }
+
+                            self._initToRoot(resp, callback);
+                        })
+                    });
+                } else {
+                    self._initToRoot(resp, callback);
+                }
             });
+        },
+
+        /*
+         * Initialize to the given root node record
+         */
+        _initToRoot: function(rootRec, callback) {
+            this.root = rootRec.root;
+            callback && callback();
         },
 
         /*
          * Return the remote database URL
          */
-        remoteDB: function() {
-            return 'http://' + server + ':' + port + '/' + spaceName;
+        remoteDB: function(space) {
+            return 'http://' + this.server + ':' + this.port + '/' + space;
         },
 
         /*
-         * Sync this space with the remote space
+         * Sync this space with the remote space, continuously, both directions
          */
-        sync: function() {
+        syncBoth: function() {
             // mark something as busy
             var self = this;
             var opts = {continuous: true, complete: function() {self.syncComplete()} };
 
             this.db.replicate.to(this.remoteDB(), opts);
             this.db.replicate.from(this.remoteDB(), opts);
+        },
+
+        /*
+         * Save the space to the remote DB
+         */
+        save: function(callback) {
+            // mark something as busy
+            var self = this;
+
+            this.db.replicate.to(this.remoteDB(spaceName), {
+                continuous: false, 
+                complete: function() { callback && callback() } 
+            });
+        },
+
+        /*
+         * Save the space to a new remote DB
+         */
+        saveAs: function(name, callback) {
+            // mark something as busy
+            var self = this;
+            var opts = {continuous: false, complete: function() { callback && callback() } };
+
+            this.db.replicate.to(this.remoteDB(name), opts);
         },
 
         /*
@@ -69,25 +122,26 @@ define([
         /*
          * Build a new space
          */
-        buildNewSpace: function() {
+        buildNewSpace: function(callback) {
             this.db.put({
                 _id: 'root',
-                contents: 'i exist'
+                contents: 'i exist',
+                root: 't3'
+            }, function() {
+                callback && callback();
             });
 
-            /*
-            set r [$self slot root]
-            assert {[Object exists $r]}
 
-            $self set "/home/tests/table1/alpha english" "one"
-            $self set "/home/tests/table1/beta english" "two"
-            $self set "/home/tests/table1/gamma english" "three"
-            $self set "/home/tests/table1/alpha spanish" "uno"
-            $self set "/home/tests/table1/beta spanish" "dos"
-            $self set "/home/tests/table1/gamma spanish" "tres"
-            $self set "/home/tests/table1/alpha french" "un"
-            $self set "/home/tests/table1/beta french" "deux"
-            $self set "/home/tests/table1/gamma french" "trois"
+            /*
+            this.set("/home/tests/table1/alpha english", "one");
+            this.set("/home/tests/table1/beta english", "two");
+            this.set("/home/tests/table1/gamma english", "three");
+            this.set("/home/tests/table1/alpha spanish", "uno");
+            this.set("/home/tests/table1/beta spanish", "dos");
+            this.set("/home/tests/table1/gamma spanish", "tres");
+            this.set("/home/tests/table1/alpha french", "un");
+            this.set("/home/tests/table1/beta french", "deux");
+            this.set("/home/tests/table1/gamma french", "trois");
 
             set tri [$self bind "/home/tests/table1" [Cell new "Table"] "/thyrd/ys/panel"]
 

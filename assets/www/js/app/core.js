@@ -10,7 +10,11 @@ define([
 
         // Create the space
 
-        ThyrdSpace.exist();
+        ThyrdSpace.exist(function() {
+            Thyrd.space.save(function() {
+                alert('saved, root is ' + Thyrd.space.root);
+            });
+        });
 
         // Create the UI
         
