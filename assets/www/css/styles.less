@@ -1,0 +1,239 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;   
+    background:#E0E0E0;
+    padding:0px;
+    margin:0px;
+    color:#333;
+    min-height:100%;
+}
+
+.header {
+    text-align:center;
+    position:fixed;
+    height:30px;
+    left:0px;
+    right:0px;
+    background:#FFF;
+    padding:25px 0px 5px 0px;
+    border-bottom:5px solid #CCC;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.content {  
+    position:fixed;
+    top:62px;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    overflow:scroll;
+    -webkit-overflow-scrolling:touch;
+    margin-bottom:30px;
+}
+
+.footer {
+    position:fixed;
+    height:22px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    background:#FFF;
+    color:888;
+    text-align:center;
+    padding:5px 0px 0px 0px;
+    border-top:5px solid #CCC;
+    font-size:12px;
+}
+
+.float-left .card {
+    float:left;
+    width:300px;  
+    height:270px;
+}
+
+.multi-column {
+    columns:300px 3;
+    -webkit-columns:300px 3;
+}
+
+.card {
+    background:#FFF;
+    border:1px solid #AAA;
+    border-bottom:3px solid #BBB;
+    padding:0px;
+    margin:15px;
+    overflow:hidden;
+}
+
+.card h1 {
+    margin:0px;
+    padding:10px;
+    padding-bottom:0px;
+}
+
+.card p {
+    margin:0px;
+    padding:10px;
+}
+
+.card-image {
+    width:100%;
+    height:200px;
+    padding:0px;
+    margin:0px;
+    background-position:center;
+    background-repeat:no-repeat;
+    position:relative;
+    overflow:hidden;
+}
+
+.card-image .banner {
+    height:50px;
+    width:50px;
+    top:0px;
+    right:0px;
+    background-position:top right;
+    background-repeat:no-repeat;
+    background-image:url('../images/new.png');
+    position:absolute;
+}
+
+.card-image h1, 
+.card-image h2, 
+.card-image h3, 
+.card-image h4, 
+.card-image h5, 
+.card-image h6 {
+    position:absolute;
+    bottom:0px;
+    width:100%;
+    color:white;
+    background:rgba(0,0,0,0.65);
+    margin:0px;
+    padding:6px;
+    border:none;
+}
+
+.rightColumn,
+.leftColumn {
+    display:inline-block;
+    width:49%;
+    vertical-align:top;
+}
+
+.column {
+    display:inline-block;
+    vertical-align:top;
+}
+
+.icon-OpAdd { background-image:url('../images/opcodes/OpAdd.png'); }
+.icon-OpAnd { background-image:url('../images/opcodes/OpAnd.png'); }
+.icon-OpA { background-image:url('../images/opcodes/OpA.png'); }
+.icon-OpAtomic { background-image:url('../images/opcodes/OpAtomic.png'); }
+.icon-OpBind { background-image:url('../images/opcodes/OpBind.png'); }
+.icon-OpB { background-image:url('../images/opcodes/OpB.png'); }
+.icon-OpBreak { background-image:url('../images/opcodes/OpBreak.png'); }
+.icon-OpCall { background-image:url('../images/opcodes/OpCall.png'); }
+.icon-OpContainer { background-image:url('../images/opcodes/OpContainer.png'); }
+.icon-OpCopyCells { background-image:url('../images/opcodes/OpCopyCells.png'); }
+.icon-OpCutCells { background-image:url('../images/opcodes/OpCutCells.png'); }
+.icon-OpDeleteCols { background-image:url('../images/opcodes/OpDeleteCols.png'); }
+.icon-OpDeleteRow { background-image:url('../images/opcodes/OpDeleteRow.png'); }
+.icon-OpDivide { background-image:url('../images/opcodes/OpDivide.png'); }
+.icon-OpDrop { background-image:url('../images/opcodes/OpDrop.png'); }
+.icon-OpDupCell { background-image:url('../images/opcodes/OpDupCell.png'); }
+.icon-OpDup { background-image:url('../images/opcodes/OpDup.png'); }
+.icon-OpEnd { background-image:url('../images/opcodes/OpEnd.png'); }
+.icon-OpEqual { background-image:url('../images/opcodes/OpEqual.png'); }
+.icon-OpError { background-image:url('../images/opcodes/OpError.png'); }
+.icon-OpEval { background-image:url('../images/opcodes/OpEval.png'); }
+.icon-OpFilter { background-image:url('../images/opcodes/OpFilter.png'); }
+.icon-OpFind { background-image:url('../images/opcodes/OpFind.png'); }
+.icon-OpFold { background-image:url('../images/opcodes/OpFold.png'); }
+.icon-OpFollow { background-image:url('../images/opcodes/OpFollow.png'); }
+.icon-OpGetSub { background-image:url('../images/opcodes/OpGetSub.png'); }
+.icon-OpGetType { background-image:url('../images/opcodes/OpGetType.png'); }
+.icon-OpGTE { background-image:url('../images/opcodes/OpGTE.png'); }
+.icon-OpGT { background-image:url('../images/opcodes/OpGT.png'); }
+.icon-OpHasSub { background-image:url('../images/opcodes/OpHasSub.png'); }
+.icon-OpIf { background-image:url('../images/opcodes/OpIf.png'); }
+.icon-OpIndex { background-image:url('../images/opcodes/OpIndex.png'); }
+.icon-OpInsertCols { background-image:url('../images/opcodes/OpInsertCols.png'); }
+.icon-OpInsertRows { background-image:url('../images/opcodes/OpInsertRows.png'); }
+.icon-OpIsUnder { background-image:url('../images/opcodes/OpIsUnder.png'); }
+.icon-OpLTE { background-image:url('../images/opcodes/OpLTE.png'); }
+.icon-OpLT { background-image:url('../images/opcodes/OpLT.png'); }
+.icon-OpMakeGrid { background-image:url('../images/opcodes/OpMakeGrid.png'); }
+.icon-OpMap2 { background-image:url('../images/opcodes/OpMap2.png'); }
+.icon-OpMap { background-image:url('../images/opcodes/OpMap.png'); }
+.icon-OpMergeGrid { background-image:url('../images/opcodes/OpMergeGrid.png'); }
+.icon-OpMerge { background-image:url('../images/opcodes/OpMerge.png'); }
+.icon-OpModulo { background-image:url('../images/opcodes/OpModulo.png'); }
+.icon-OpMoveToA { background-image:url('../images/opcodes/OpMoveToA.png'); }
+.icon-OpMoveToB { background-image:url('../images/opcodes/OpMoveToB.png'); }
+.icon-OpMoveToX { background-image:url('../images/opcodes/OpMoveToX.png'); }
+.icon-OpMoveToY { background-image:url('../images/opcodes/OpMoveToY.png'); }
+.icon-OpMultiply { background-image:url('../images/opcodes/OpMultiply.png'); }
+.icon-OpNip { background-image:url('../images/opcodes/OpNip.png'); }
+.icon-OpNoOp { background-image:url('../images/opcodes/OpNoOp.png'); }
+.icon-OpNotEqual { background-image:url('../images/opcodes/OpNotEqual.png'); }
+.icon-OpNot { background-image:url('../images/opcodes/OpNot.png'); }
+.icon-OpNull { background-image:url('../images/opcodes/OpNull.png'); }
+.icon-OpOr { background-image:url('../images/opcodes/OpOr.png'); }
+.icon-OpParseGrid { background-image:url('../images/opcodes/OpParseGrid.png'); }
+.icon-OpParse { background-image:url('../images/opcodes/OpParse.png'); }
+.icon-OpPasteCells { background-image:url('../images/opcodes/OpPasteCells.png'); }
+.icon-OpPick { background-image:url('../images/opcodes/OpPick.png'); }
+.icon-OpPred { background-image:url('../images/opcodes/OpPred.png'); }
+.icon-OpRangeSetType { background-image:url('../images/opcodes/OpRangeSetType.png'); }
+.icon-OpRecurseLinear { background-image:url('../images/opcodes/OpRecurseLinear.png'); }
+.icon-OpRecurse { background-image:url('../images/opcodes/OpRecurse.png'); }
+.icon-OpRepeat { background-image:url('../images/opcodes/OpRepeat.png'); }
+.icon-OpReverse { background-image:url('../images/opcodes/OpReverse.png'); }
+.icon-OpRotate { background-image:url('../images/opcodes/OpRotate.png'); }
+.icon-OpSelect { background-image:url('../images/opcodes/OpSelect.png'); }
+.icon-OpSeq { background-image:url('../images/opcodes/OpSeq.png'); }
+.icon-OpSet { background-image:url('../images/opcodes/OpSet.png'); }
+.icon-OpSetType { background-image:url('../images/opcodes/OpSetType.png'); }
+.icon-OpStep { background-image:url('../images/opcodes/OpStep.png'); }
+.icon-OpSubtract { background-image:url('../images/opcodes/OpSubtract.png'); }
+.icon-OpSucc { background-image:url('../images/opcodes/OpSucc.png'); }
+.icon-OpSwap { background-image:url('../images/opcodes/OpSwap.png'); }
+.icon-OpSwitch { background-image:url('../images/opcodes/OpSwitch.png'); }
+.icon-OpTcl { background-image:url('../images/opcodes/OpTcl.png'); }
+.icon-OpToCell { background-image:url('../images/opcodes/OpToCell.png'); }
+.icon-OpToPath { background-image:url('../images/opcodes/OpToPath.png'); }
+.icon-OpTuck { background-image:url('../images/opcodes/OpTuck.png'); }
+.icon-OpUnbind { background-image:url('../images/opcodes/OpUnbind.png'); }
+.icon-OpWaveAnchor { background-image:url('../images/opcodes/OpWaveAnchor.png'); }
+.icon-OpWaveNext { background-image:url('../images/opcodes/OpWaveNext.png'); }
+.icon-OpWavePrev { background-image:url('../images/opcodes/OpWavePrev.png'); }
+.icon-OpX { background-image:url('../images/opcodes/OpX.png'); }
+.icon-OpY { background-image:url('../images/opcodes/OpY.png'); }
+
+.image1 {
+    background-image:url('../images/opcodes/OpRecurse.png');
+}
+
+.image2 {
+    background-image:url('../images/opcodes/OpAtomic.png');
+}
+
+.image3 {
+    background-image:url('../images/opcodes/OpUnbind.png');
+}
+
+.image4 {
+    background-image:url('../images/opcodes/OpTuck.png');
+}
+
+.image5 {
+    background-image:url('../images/opcodes/OpMergeGrid.png');
+}
+
+.image6 {
+    background-image:url('../images/opcodes/OpDrop.png');
+}
+
+
+
